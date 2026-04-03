@@ -29,4 +29,20 @@ As outlined in our project guidelines, we need to implement the following:
   - Source Chain: `DepositForBurn` (Main burn event) & `MessageSent`.
   - Dest Chain: `MessageReceived` and `MintAndWithdraw`.
   - The `nonce` in the `MessageReceived` event is actually a `keccak256` hash of the cross-chain message, not a simple auto-incrementing integer.
-- **🚨 Known Issues / Blockers 🚨**: The current `block_by_date.py` script is returning `Error 401` from the Moralis API (`https://deep-index.moralis.io/api/v2.2/dateToBlock`). The `MORALIS_API_KEY` in the `.env` file appears to be invalid or expired, so timestamp-to-block resolution via this API currently fails. (Note: The main `extract_logs_from_EVMchain_sqd.py` script bypasses this issue entirely by using an automatic 2-step block calibration via Subsquid!)
+
+Project Status: CCTP Analytics (dbt + Superset)
+1. Data Pipeline
+
+ETL: Python scripts extract/transform logs into data/transformed/.
+dbt: dbt_project/ uses dbt-duckdb to model data into data/cctp_analytics.duckdb.
+Primary Models: mart_daily_volume, mart_chain_flows, mart_top_users.
+2. Superset Setup (Docker)
+
+Container: superset_app (managed via external docker-compose).
+Database Connection: duckdb:////app/cctp_analytics.duckdb.
+Driver: duckdb-engine (v0.17.0) is installed inside the container.
+3. Workflow Commands
+
+Run dbt: cd dbt_project && dbt run
+Sync to Superset: (Required after dbt run) docker cp data/cctp_analytics.duckdb superset_app:/app/cctp_analytics.duckdb
+Everything is now connected and verified. You can build charts in Superset using the cctp_analytics database in the main schema.

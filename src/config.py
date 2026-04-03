@@ -1,7 +1,7 @@
 # ── CCTP V2 Bridge Analytics Configuration ──
 
 # ── Time range (UTC) ──
-START_DATE = "2026-03-01"
+START_DATE = "2026-03-21"
 END_DATE   = "2026-03-31"
 
 # ── Subsquid ──
@@ -66,4 +66,5 @@ DOMAIN_NAMES = {
 }
 
 # ── Output ──
-OUTPUT_FILE = "data/raw/cctp_extracted_logs.parquet"
+RAW_OUTPUT_FILE = "data/raw/cctp_raw_logs.parquet"
+TRANSFORMED_OUTPUT_FILE = "data/transformed/cctp_transformed_raw_logs.parquet"

@@ -1,4 +1,4 @@
-o extract CCTP data across EVM chains without using paid services, focus on the following core components:
+to extract CCTP data across EVM chains without using paid services, focus on the following core components:
 
 1. Chain Domain IDs
 CCTP uses internal domain IDs instead of standard EVM chain IDs for routing. You must use these IDs to filter logs:

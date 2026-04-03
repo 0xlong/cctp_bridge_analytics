@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Decoded CCTP DepositForBurn events from Python ETL"
+    tables:
+      - name: cctp_burns
+        description: "Parquet file produced by transform_logs.py"
+        meta:
+          external_location: "read_parquet('{{ env_var('PROJECT_ROOT', '..') }}/data/transformed/cctp_transformed_raw_logs.parquet')"
+        columns:
+          - name: tx_hash
+            description: "Transaction hash of the burn event"
+          - name: block_number
+            description: "Block number on the source chain"
+          - name: log_index
+            description: "Log index within the block"
+          - name: timestamp
+            description: "ISO8601 timestamp of the burn event (UTC)"
+          - name: source_chain
+            description: "Human-readable source chain name"
+          - name: dest_chain
+            description: "Human-readable destination chain name"
+          - name: depositor
+            description: "Wallet address that initiated the burn"
+          - name: recipient
+            description: "Mint recipient on the destination chain"
+          - name: burn_token
+            description: "Token contract address burned (USDC)"
+          - name: amount
+            description: "Amount transferred (USDC, 6 decimal adjusted)"
+          - name: amount_raw
+            description: "Raw amount in micro-USDC (uint256)"

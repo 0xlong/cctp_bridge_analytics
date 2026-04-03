@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: int_burn_flows
+    description: "Daily route-level aggregations (source→dest per day)"
+    columns:
+      - name: burn_date
+        tests: [not_null]
+      - name: source_chain
+        tests: [not_null]
+      - name: dest_chain
+        tests: [not_null]
+      - name: total_volume_usdc
+        tests: [not_null]
+
+  - name: mart_daily_volume
+    description: "Daily USDC bridging volume and transfer count by source chain"
+    columns:
+      - name: burn_date
+        tests: [not_null]
+      - name: source_chain
+        tests: [not_null]
+      - name: daily_volume_usdc
+        tests: [not_null]
+
+  - name: mart_chain_flows
+    description: "Cross-chain flow matrix with volume share percentages"
+    columns:
+      - name: source_chain
+        tests: [not_null]
+      - name: dest_chain
+        tests: [not_null]
+      - name: total_volume_usdc
+        tests: [not_null]
+
+  - name: mart_top_users
+    description: "Top depositors ranked by total USDC bridged"
+    columns:
+      - name: depositor
+        tests: [not_null, unique]
+
+  - name: mart_hourly_heatmap
+    description: "Transfer activity heatmap by hour-of-day and day-of-week"
+    columns:
+      - name: burn_hour
+        tests: [not_null]
+      - name: burn_dow
+        tests: [not_null]

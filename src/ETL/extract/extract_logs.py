@@ -12,11 +12,11 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.config import (
     SQD_BASE_URL, CHAINS, TOKEN_MESSENGER_V2,
-    DEPOSIT_FOR_BURN_TOPIC, DOMAIN_NAMES,
-    START_DATE, END_DATE, OUTPUT_FILE, OVERRIDE_BLOCKS,
+    DEPOSIT_FOR_BURN_TOPIC, RAW_OUTPUT_FILE,
+    START_DATE, END_DATE, OVERRIDE_BLOCKS,
 )
 
-OUTPUT_PATH = PROJECT_ROOT / OUTPUT_FILE
+OUTPUT_PATH = PROJECT_ROOT / RAW_OUTPUT_FILE
 
 # Load API key from .env file
 load_dotenv()
@@ -91,50 +91,9 @@ def build_payload(from_block: int, to_block: int) -> dict:
     }
 
 
-# ── Decoder ──
+# ── Fetcher (raw logs only) ──
 
-def decode_deposit_for_burn(log: dict, block_header: dict, source_chain: str) -> dict | None:
-    """
-    Decode DepositForBurn log.
-    Topics: topic1=burnToken, topic2=depositor, topic3=minFinalityThreshold
-    Data chunks: [0]amount [1]mintRecipient [2]destDomain [3]destTokenMsgr [4]destCaller [5]maxFee [6+]hookData
-    """
-    topics = log["topics"]
-    data = log["data"][2:]
-    chunks = [data[i : i + 64] for i in range(0, len(data), 64)]
-
-    burn_token = "0x" + topics[1][26:]
-    depositor = "0x" + topics[2][26:]
-    amount_raw = int(chunks[0], 16)
-    mint_recipient_raw = chunks[1]
-    dest_domain = int(chunks[2], 16)
-
-    is_evm = mint_recipient_raw[:24] == "0" * 24
-    mint_recipient = ("0x" + mint_recipient_raw[24:]) if is_evm else mint_recipient_raw
-
-    timestamp = block_header["timestamp"]
-    dt = datetime.fromtimestamp(timestamp, tz=timezone.utc)
-
-    return {
-        "timestamp": dt.isoformat(),
-        "unix_ts": timestamp,
-        "source_chain": source_chain,
-        "dest_chain": DOMAIN_NAMES.get(dest_domain, f"unknown({dest_domain})"),
-        "dest_domain": dest_domain,
-        "burn_token": burn_token.lower(),
-        "depositor": depositor.lower(),
-        "recipient": mint_recipient.lower() if is_evm else mint_recipient,
-        "amount": amount_raw / 1e6,
-        "amount_raw": amount_raw,
-        "tx_hash": log["transactionHash"],
-        "block_number": block_header["number"],
-        "log_index": log["logIndex"],
-    }
-
-
-# ── Fetcher ──
-
-def fetch_burns(chain_name: str, chain_config: tuple) -> list[dict]:
+def fetch_raw_logs(chain_name: str, chain_config: tuple) -> list[dict]:
     dataset = chain_config[0]
 
     if chain_name in OVERRIDE_BLOCKS:
@@ -195,9 +154,16 @@ def fetch_burns(chain_name: str, chain_config: tuple) -> list[dict]:
                     if (log.get("address", "").lower() != TOKEN_MESSENGER_V2.lower()
                             or log.get("topics", [None])[0] != DEPOSIT_FOR_BURN_TOPIC):
                         continue
-                    rec = decode_deposit_for_burn(log, header, chain_name)
-                    if rec:
-                        records.append(rec)
+                    records.append({
+                        "source_chain": chain_name,
+                        "block_number": header["number"],
+                        "block_timestamp": header["timestamp"],
+                        "tx_hash": log["transactionHash"],
+                        "log_index": log["logIndex"],
+                        "address": log["address"],
+                        "topics": json.dumps(log["topics"]),
+                        "data": log["data"],
+                    })
             
             # Subsquid API chunks streams. If it stopped early, continue from next block.
             if lines_parsed == 0 or last_block_in_batch >= to_block:
@@ -205,32 +171,30 @@ def fetch_burns(chain_name: str, chain_config: tuple) -> list[dict]:
                 
             current_from_block = last_block_in_batch + 1
 
-    print(f"  {chain_name}: {len(records)} burns")
+    print(f"  {chain_name}: {len(records)} raw logs")
     return records
 
 
 # ── Main ──
 
 def main():
-    print(f"CCTP V2 Burns: {START_DATE} → {END_DATE}\n")
+    print(f"CCTP V2 Raw Log Extraction: {START_DATE} → {END_DATE}\n")
 
     all_records = []
     for chain_name, chain_config in CHAINS.items():
-        burns = fetch_burns(chain_name, chain_config)
-        all_records.extend(burns)
+        logs = fetch_raw_logs(chain_name, chain_config)
+        all_records.extend(logs)
 
-    all_records.sort(key=lambda r: r["unix_ts"])
+    all_records.sort(key=lambda r: r["block_timestamp"])
 
     if all_records:
         import pandas as pd
-        df = pd.DataFrame(all_records, columns=[
-            "timestamp", "source_chain", "dest_chain", "burn_token", "depositor",
-            "recipient", "amount", "tx_hash", "block_number", "log_index",
-        ])
+        df = pd.DataFrame(all_records)
+        OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
         df.to_parquet(OUTPUT_PATH, index=False)
-        print(f"\nWrote {len(all_records)} records to {OUTPUT_PATH}")
+        print(f"\nWrote {len(all_records)} raw logs to {OUTPUT_PATH}")
     else:
-        print("\nNo burns found.")
+        print("\nNo logs found.")
 
 if __name__ == "__main__":
     main()

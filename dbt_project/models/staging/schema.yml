@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_cctp_burns
+    description: "Cleaned and cast DepositForBurn events — one row per burn transaction"
+    columns:
+      - name: tx_hash
+        description: "Transaction hash — not unique alone; true PK is (tx_hash, log_index)"
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: warn
+      - name: burn_timestamp
+        description: "Burn event timestamp (UTC)"
+        tests:
+          - not_null
+      - name: source_chain
+        description: "Chain where USDC was burned"
+        tests:
+          - not_null
+          - accepted_values:
+              config:
+                severity: warn
+              values: ['Ethereum','Avalanche','Optimism','Arbitrum','Base','Polygon','HyperEVM','Monad']
+      - name: dest_chain
+        description: "Destination chain name"
+        tests:
+          - not_null
+      - name: depositor
+        description: "Wallet that initiated the burn"
+        tests:
+          - not_null
+      - name: amount_usdc
+        description: "Transfer amount in USDC (human-readable)"
+        tests:
+          - not_null

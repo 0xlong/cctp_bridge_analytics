@@ -1,0 +1,9 @@
+cctp_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "../data/cctp_analytics.duckdb"
+      threads: 4
+      extensions:
+        - parquet
