@@ -1,0 +1,45 @@
+# .claudignore best practices
+.env
+.gemini/
+
+# Version Control
+.git/
+
+# Node environment (if applicable)
+node_modules/
+
+# Python environment
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+cctp_bridge_analytics_env/
+
+# Build and Distribution
+dist/
+build/
+*.egg-info/
+*.spec
+
+# IDEs and Tools
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+
+# Large Data & Logs
+*.csv     
+*.log
+*.sqlite
+*.db
+*.parquet
+
+# Redundant instructions
+#project_instructions.txt
+#project_stepbystep_guideliens.txt

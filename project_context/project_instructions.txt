@@ -1,0 +1,54 @@
+o extract CCTP data across EVM chains without using paid services, focus on the following core components:
+
+1. Chain Domain IDs
+CCTP uses internal domain IDs instead of standard EVM chain IDs for routing. You must use these IDs to filter logs:
+
+0: Ethereum 
+
+1: Avalanche 
+
+2: OP Mainnet 
+
+3: Arbitrum One 
+
+6: Base 
+
+7: Polygon PoS 
+
+2. Primary Contract Addresses (V2)
+For canonical V2 analytics, use the following contract addresses (consistent across most mainnets):
+
+TokenMessengerV2: 0x28b5a0e9C621a5BadaA536219b3a228C8168cf5d 
+
+MessageTransmitterV2 (Ethereum): 0xbd384f74f115943152623d7518a3ee1d1209b5a9 
+
+TokenMinterV2: Typically managed internally by the TokenMessenger, but required if you need to track direct minting logic.
+
+3. Key Events to Extract
+To build a complete cross-chain record, you must extract and match two specific events using the nonce and sourceDomain fields :
+
+Transfer Phase	Contract	Event & Primary Parameters
+Source (Burn)	TokenMessenger	
+DepositForBurn(nonce, amount, depositor, mintRecipient, destinationDomain) 
+
+Destination (Mint)	TokenMessenger	
+MintAndWithdraw(mintRecipient, amount, mintToken) 
+
+Relay Logic	MessageTransmitter	
+MessageReceived(sourceDomain, nonce, sender, messageBody) 
+
+4. Extraction Process (How-To)
+Since you are avoiding Dune, use open-source indexing frameworks like Envio or Subsquid to perform the following steps:
+
+Polling: Set up an indexer to poll RPC nodes for logs from the TokenMessenger address across all target chains.
+
+Indexing: Capture every DepositForBurn event on the source chain. Store the nonce, amount, and destinationDomain.
+
+Reconciliation: Monitor the destination chain for a MessageReceived event from the MessageTransmitter that matches the source nonce and sourceDomain.
+
+Completion: Once a match is found, update the record with the destination transaction hash and timestamp to calculate latency.
+
+5. Essential Data Handling
+Address Format: CCTP uses bytes32 for all addresses in message payloads to maintain compatibility. You must truncate the leading zeros to convert them back to 20-byte EVM addresses.
+
+Reorg Handling: Ensure your indexer stores the block_hash and log_index to handle chain reorganizations, particularly on lower-latency chains like Polygon.

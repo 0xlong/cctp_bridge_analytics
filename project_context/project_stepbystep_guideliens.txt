@@ -1,0 +1,11 @@
+Your Analysis Pipeline — Simplest Possible
+Step 1: FETCH         Step 2: DECODE        Step 3: MATCH         Step 4: ANALYZE
+─────────────         ──────────────        ─────────────         ───────────────
+Query Subsquid        Parse raw hex         Link burn↔mint        Answer questions
+for logs from         into readable         using (nonce +        like volume,
+TokenMessenger        fields: who,          sourceDomain)         top users, etc.
+on each chain         how much, where                             
+  Raw logs ────►  Structured data ────►  Paired transfers ────►  Analytics
+
+NEXT PROJECT
+build interactive live graph of where tokens are flowing, from which chain to which chain, like You did for Across with githubpages
