@@ -44,11 +44,11 @@ DEPOSIT_FOR_BURN_TOPIC = "0x0c8c1cbdc5190613ebd485511d4e2812cfa45eecb79d84589333
 DOMAIN_NAMES = {
     0:  "Ethereum",
     1:  "Avalanche",
-    2:  "Optimism",
+    2:  "OP Mainnet",
     3:  "Arbitrum",
     5:  "Solana",
     6:  "Base",
-    7:  "Polygon",
+    7:  "Polygon PoS",
     10: "Unichain",
     11: "Linea",
     12: "Codex",
@@ -56,13 +56,17 @@ DOMAIN_NAMES = {
     14: "World Chain",
     15: "Monad",
     16: "Sei",
+    17: "BNB Smart Chain",
     18: "XDC",
     19: "HyperEVM",
     21: "Ink",
     22: "Plume",
     25: "Starknet",
+    26: "Arc Testnet",
     28: "EDGE",
+    29: "Injective Testnet",
     30: "Morph",
+    31: "Pharos Testnet",
 }
 
 # ── Output ──

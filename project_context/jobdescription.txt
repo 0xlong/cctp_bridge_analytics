@@ -1,0 +1,77 @@
+Circle (NYSE: CRCL) is one of the world’s leading internet financial platform companies, building the foundation of a more open, global economy through digital assets, payment applications, and programmable blockchain infrastructure. Circle’s platform includes the world’s largest regulated stablecoin network anchored by USDC, Circle Payments Network for global money movement, and Arc, an enterprise-grade blockchain designed to become the Economic OS for the internet. Enterprises, financial institutions, and developers use Circle to power trusted, internet-scale financial innovation. Learn more at circle.com.
+
+What you’ll be part of:
+
+Circle is committed to visibility and stability in everything we do. As we grow as an organization, we're expanding into some of the world's strongest jurisdictions. Speed and efficiency are motivators for our success and our employees live by our company values: High Integrity, Future Forward, Multistakeholder, Mindful, and Driven by Excellence. We have built a flexible work environment where new ideas are encouraged and everyone is a stakeholder.
+
+What you’ll be responsible for:
+
+Circle is more than USDC. We build a variety of tools that power the digital asset and onchain ecosystem — from programmable wallets to CCTP to ARC and beyond. These products serve developers, blockchains, applications, exchanges, traders, institutions, and individuals worldwide.
+
+We are looking for a Senior Data Scientist to help us deeply understand how our products — and adjacent ecosystem products — are being used, by whom, and why. You will help drive high-impact analytical work that informs product development, growth strategy, ecosystem health, and risk management.
+
+This role will partner closely with Product, Engineering, Business Development, Marketing, Compliance, and Research teams to turn complex data into actionable insights that shape decision-making.
+
+What you'll work on:
+
+Analyze product usage and ecosystem dynamics across ARC, CCTP, Chain Expansion, programmable wallets, and future initiatives. 
+
+Develop analytical frameworks to understand user behavior, token flows, ecosystem growth, and competitive positioning.
+
+Design and execute end-to-end analyses — from problem framing and data extraction to modeling, interpretation, and communication.
+
+Build statistical models to evaluate token distribution, liquidity movement, user segmentation, and ecosystem health.
+
+Collaborate with Blockchain Researchers and engineers to generate insights from transaction data, network activity, and emerging onchain trends.
+
+Translate ambiguous business questions into structured analyses and clear recommendations.
+
+Mentor junior analysts and contribute to raising the overall analytical bar across the team.
+
+You will aspire to our five core values:
+
+Multistakeholder - you have dedication and commitment to our customers, shareholders, employees and families and local communities.
+
+Mindful - you seek to be respectful, an active listener and to pay attention to detail.
+
+Driven by Excellence - you are driven by our mission and our passion for customer success which means you relentlessly pursue excellence, that you do not tolerate mediocrity and you work intensely to achieve your goals.
+
+High Integrity - you seek open and honest communication, and you hold yourself to very high moral and ethical standards. You reject manipulation, dishonesty and intolerance.
+
+Future Forward - you drive innovation in digital currency to create a new, open financial systems
+
+What you’ll bring to Circle:
+
+5+ years of experience in data science, analytics, or a related quantitative field.
+
+Strong proficiency in SQL and at least one programming language (Python or R).
+
+Solid foundation in statistics and experience applying statistical methods to real-world product or ecosystem data. 
+
+Experience driving analytical projects independently, from scoping through delivery.
+
+Strong analytical and problem-solving skills with attention to detail. 
+
+Ability to clearly communicate complex insights to both technical and non-technical stakeholders.
+
+Experience working cross-functionally with Product, Engineering, or Business teams.
+
+Preferred Qualifications:
+
+Experience working with blockchain data, crypto products, or digital asset ecosystems.
+
+Experience in adjacent industries such as fintech, payments, marketplaces, trading platforms, network platforms, or financial infrastructure.
+
+Familiarity with blockchain analytics, transaction analysis, or network analysis concepts.
+
+Experience with anomaly detection, fraud detection, or risk analytics.
+
+Exposure to tokenomics or stablecoin mechanics.
+
+Familiarity with blockchain analytics tools (e.g., Arkham, TRM Labs, Chainalysis, Elliptic) is a plus.
+
+Join us as a Data Scientist to unlock the potential of blockchain data and contribute to the growth and security of our organization in this constantly evolving space.
+
+Circle is on a mission to create an inclusive financial future, with transparency at our core. We consider a wide variety of elements when crafting our compensation ranges and total compensation packages.
+
+Starting pay is determined by various factors, including but not limited to: relevant experience, skill set, qualifications, and other business and organizational needs. Please note that compensation ranges may differ for candidates in other locations.
