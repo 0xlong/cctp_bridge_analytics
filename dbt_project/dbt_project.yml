@@ -17,7 +17,7 @@ clean-targets: ["target", "dbt_packages"]
 models:
   cctp_analytics:
     staging:
-      +materialized: view
+      +materialized: table
     intermediate:
       +materialized: table
     marts:

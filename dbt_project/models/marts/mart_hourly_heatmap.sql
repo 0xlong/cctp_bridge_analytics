@@ -9,13 +9,13 @@ select
     burn_hour,
     burn_dow,
     case burn_dow
-        when 0 then 'Sun'
-        when 1 then 'Mon'
-        when 2 then 'Tue'
-        when 3 then 'Wed'
-        when 4 then 'Thu'
-        when 5 then 'Fri'
-        when 6 then 'Sat'
+        when 0 then '7_Sunday'
+        when 1 then '1_Monday'
+        when 2 then '2_Tuesday'
+        when 3 then '3_Wednesday'
+        when 4 then '4_Thursday'
+        when 5 then '5_Friday'
+        when 6 then '6_Saturday'
     end                                             as day_name,
     count(*)                                        as num_transfers,
     round(sum(amount_usdc), 2)                      as total_volume_usdc,

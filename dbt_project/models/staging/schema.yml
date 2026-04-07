@@ -31,6 +31,10 @@ models:
         description: "Wallet that initiated the burn"
         tests:
           - not_null
+      - name: recipient
+        description: "Mint recipient on the destination chain"
+        tests:
+          - not_null
       - name: amount_usdc
         description: "Transfer amount in USDC (human-readable)"
         tests:
