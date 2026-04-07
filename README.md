@@ -2,6 +2,10 @@
 
 End-to-end analytics pipeline for Circle's Cross-Chain Transfer Protocol (CCTP V2). Extracts, decodes, and models USDC bridge activity across 8 EVM chains to surface insights on token flows, user behavior, volume trends, and ecosystem health — entirely from open-source indexers, with no paid data providers.
 
+## Superset Dashboard
+
+[cctp_dashboard.webm](https://github.com/user-attachments/assets/d04270bb-6b1f-476b-af3b-32b3365183d5)
+
 ## Architecture
 
 ```
